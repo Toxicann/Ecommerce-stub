@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// import '../Components/product.dart';
+import '../Components/products.dart';
 import '../Provider/data.dart';
 
 class MainScreen extends StatefulWidget {
@@ -33,32 +33,30 @@ class _MainScreenState extends State<MainScreen> {
             ? Theme.of(context).colorScheme.primary
             : Theme.of(context).colorScheme.secondary,
       ),
-      // body: GridView(
-      //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      //         crossAxisCount: 2,
-      //         crossAxisSpacing: 10,
-      //         mainAxisSpacing: 10,
-      //         childAspectRatio: 0.75),
-      //     children: <Widget>[
-      //       for (int i = 0; i < 5; i++) Text('${data.productList.id}'),
-      //     ]),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.shifting,
-        currentIndex: currentIndex,
-        onTap: (index) => setState(() => currentIndex = index),
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: 'Product',
-            backgroundColor: Theme.of(context).colorScheme.primary,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.shopping_cart),
-            label: 'Cart',
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-          ),
-        ],
-      ),
+      body: currentIndex == 0
+          ? Products(data: data)
+          : const Text('Coming Soon!!!'),
+      bottomNavigationBar: bottomNav(context),
+    );
+  }
+
+  BottomNavigationBar bottomNav(BuildContext context) {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.shifting,
+      currentIndex: currentIndex,
+      onTap: (index) => setState(() => currentIndex = index),
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.home),
+          label: 'Product',
+          backgroundColor: Theme.of(context).colorScheme.primary,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.shopping_cart),
+          label: 'Cart',
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+        ),
+      ],
     );
   }
 }
