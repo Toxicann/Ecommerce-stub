@@ -35,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (user == null) {
                       user = await _googleSignIn.signIn();
                       if (user != null) {
+                        // ignore: use_build_context_synchronously
                         Navigator.pushNamed(context, '/main');
                       }
                     } else {

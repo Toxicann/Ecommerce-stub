@@ -8,7 +8,16 @@ class Data extends ChangeNotifier {
 
   fetchData(context) async {
     productList = await getData(context);
+    notifyListeners();
+  }
 
+  decreaseStock(index) {
+    productList[index].stock--;
+    notifyListeners();
+  }
+
+  increaseStock(index) {
+    productList[index].stock++;
     notifyListeners();
   }
 }

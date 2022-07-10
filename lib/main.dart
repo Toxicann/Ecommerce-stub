@@ -5,6 +5,7 @@ import 'Screens/login_screen.dart';
 import 'Screens/main_screen.dart';
 
 import 'Provider/data.dart';
+import 'Provider/cart.dart';
 
 void main() {
   // runApp(const MyApp());
@@ -12,6 +13,9 @@ void main() {
     providers: [
       ChangeNotifierProvider<Data>(
         create: (_) => Data(),
+      ),
+      ChangeNotifierProvider<Cart>(
+        create: (_) => Cart(),
       ),
     ],
     child: const MyApp(),
