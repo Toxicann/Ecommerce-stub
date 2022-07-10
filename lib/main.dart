@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Screens/login_screen.dart';
+import 'Screens/product_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,13 +17,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color(0xff5065a8),
+          secondary: const Color(0xffaf9a57),
         ),
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const LoginScreen(),
-        // '/signup': (context) => const SignUpScreen(),
-        // '/main': (context) => const MainScreen(),
+        '/': (context) => LoginScreen(),
+        '/product': (context) => const ProductScreen(),
+        // '/cart': (context) => const CartScreen(),
       },
     );
   }
