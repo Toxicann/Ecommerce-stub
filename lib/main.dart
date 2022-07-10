@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Screens/login_screen.dart';
-import 'Screens/product_screen.dart';
+import 'Screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginScreen(),
-        '/product': (context) => const ProductScreen(),
+        '/': (context) => const LoginScreen(),
+        '/main': (context) => const MainScreen(),
         // '/cart': (context) => const CartScreen(),
       },
     );

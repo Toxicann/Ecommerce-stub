@@ -17,31 +17,33 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('E-Commerce App'),
+          title: Text(
+            'E-Commerce App (Signed ${user == null ? 'Out' : 'In'} )',
+          ),
         ),
         body: Center(
           child: Column(
             children: <Widget>[
-              // const Text('Welcome to Flutter'),
-              // const SizedBox(height: 20.0),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 width: double.infinity,
                 child: ElevatedButton(
-                  child:
-                      Text(user == null ? 'Sign In with Google' : 'Sign Out'),
+                  child: Text(user == null
+                      ? 'Sign In with Google'
+                      : 'Sign Out from Google'),
                   onPressed: () async {
-                    user == null
-                        ? await _googleSignIn.signIn()
-                        : await _googleSignIn.signOut();
-                    setState(() {});
-
-                    if (user!=null){
-                      Navigator.pushNamed(context, '/main');
+                    if (user == null) {
+                      user = await _googleSignIn.signIn();
+                      if (user != null) {
+                        Navigator.pushNamed(context, '/main');
+                      }
+                    } else {
+                      user = await _googleSignIn.signOut();
                     }
+                    setState(() {});
                   },
                 ),
-              )
+              ),
             ],
           ),
         ));
