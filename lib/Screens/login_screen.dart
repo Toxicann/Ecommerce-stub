@@ -28,9 +28,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 width: double.infinity,
                 child: ElevatedButton(
-                  child: Text(user == null
-                      ? 'Sign In with Google'
-                      : 'Sign Out from Google'),
+                  child: Text(
+                    user == null
+                        ? 'Sign In with Google'
+                        : 'Sign Out from Google',
+                  ),
                   onPressed: () async {
                     if (user == null) {
                       user = await _googleSignIn.signIn();

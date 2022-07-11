@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'Screens/login_screen.dart';
 import 'Screens/main_screen.dart';
+import 'Screens/checkout_screen.dart';
 
 import 'Provider/data.dart';
 import 'Provider/cart.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginScreen(),
         '/main': (context) => const MainScreen(),
+        '/checkout': (context) => const CheckoutScreen(),
       },
     );
   }

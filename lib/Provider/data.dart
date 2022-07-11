@@ -20,4 +20,15 @@ class Data extends ChangeNotifier {
     productList[index].stock++;
     notifyListeners();
   }
+
+  filterByCategory(filterValue) {
+    if (filterValue == 'No filter') {
+      null;
+    } else {
+      productList = productList
+          .where((element) => element.category.contains(filterValue))
+          .toList();
+    }
+    notifyListeners();
+  }
 }

@@ -16,4 +16,16 @@ class CartModel {
     required this.createDate,
     required this.category,
   });
+
+  factory CartModel.fromJson(Map<String, dynamic> json) {
+    return CartModel(
+      id: json['id'],
+      name: json['name'],
+      image: json['image'],
+      price: json['price'],
+      totalItems: json['stock'],
+      createDate: json['createDate'],
+      category: json['category'],
+    );
+  }
 }

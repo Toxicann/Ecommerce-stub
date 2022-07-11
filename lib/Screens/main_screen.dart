@@ -16,29 +16,32 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
 
+  String value = 'No filter';
+
+  final filterItems = [
+    'No filter',
+    'electronic',
+    'laptop',
+    'mobile',
+    'watch',
+    'keyboard',
+    'headseat',
+  ];
+
   @override
   void initState() {
     super.initState();
     final data = Provider.of<Data>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
     data.fetchData(context);
+    cart.cartList = [];
+    cart.totalSum = 0;
   }
-
-  // void addtoCart(item) {
-  //   cartList.add(CartModel(
-  //     id: item.id,
-  //     name: item.name,
-  //     image: item.image,
-  //     price: item.price,
-  //     totalItems: item.totalItems,
-  //     createDate: item.createDate,
-  //     category: item.category,
-  //   ));
-  // }
 
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<Data>(context);
-    final cart = Provider.of<Cart>(context, listen: false);
+    final cart = Provider.of<Cart>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -59,7 +62,27 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       body: currentIndex == 0
-          ? Products(data: data, cart: cart)
+          ? Column(
+              children: [
+                DropdownButton(
+                    value: value,
+                    hint: const Text('Filter by Category'),
+                    items: filterItems.map((String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) async {
+                      // await data.fetchData(context);
+                      data.filterByCategory(newValue);
+                      setState(() {
+                        value = newValue!;
+                      });
+                    }),
+                Products(data: data, cart: cart),
+              ],
+            )
           : Carts(cart: cart, data: data),
       bottomNavigationBar: bottomNav(context),
     );
@@ -85,4 +108,3 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-

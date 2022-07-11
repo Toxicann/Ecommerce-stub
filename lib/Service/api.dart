@@ -16,9 +16,11 @@ Future<List<ProductModel>> getData(context) async {
         productList.add(ProductModel.fromJson(json));
       }
     } else {
+      // ignore: avoid_print
       print('error');
     }
   } catch (e) {
+    // ignore: avoid_print
     print(e.toString());
   }
 

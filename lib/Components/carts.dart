@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 import '../Provider/data.dart';
 import '../Provider/cart.dart';
@@ -65,9 +66,12 @@ class _CartsState extends State<Carts> {
                   Text('${widget.cart.cartList[index].totalItems}'),
                   IconButton(
                     icon: const Icon(Icons.add),
-                    onPressed: widget
-                                .data
-                                .productList[widget.cart.cartList[index].id - 1]
+                    onPressed: widget.data.productList
+                                .where((element) {
+                                  return element.id ==
+                                      widget.cart.cartList[index].id;
+                                })
+                                .first
                                 .stock <
                             1
                         ? null
@@ -100,7 +104,9 @@ class _CartsState extends State<Carts> {
                       Theme.of(context).colorScheme.secondary)),
               onPressed: widget.cart.count < 1 || widget.cart.totalSum == 0
                   ? null
-                  : () {},
+                  : () {
+                      Navigator.pushNamed(context, '/checkout');
+                    },
             )
           ],
         ),
