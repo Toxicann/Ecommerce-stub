@@ -5,6 +5,9 @@ import '../Service/api.dart';
 
 class Data extends ChangeNotifier {
   late List<ProductModel> productList = <ProductModel>[];
+  late List<ProductModel> newProductList = <ProductModel>[];
+
+  int listIndex = 1;
 
   fetchData(context) async {
     productList = await getData(context);
@@ -12,22 +15,26 @@ class Data extends ChangeNotifier {
   }
 
   decreaseStock(index) {
-    productList[index].stock--;
+    listIndex == 1 ? productList[index].stock-- : newProductList[index].stock--;
+
     notifyListeners();
   }
 
   increaseStock(index) {
-    productList[index].stock++;
+    listIndex == 1 ? productList[index].stock++ : newProductList[index].stock++;
+
     notifyListeners();
   }
 
   filterByCategory(filterValue) {
     if (filterValue == 'No filter') {
-      null;
+      listIndex = 1;
     } else {
-      productList = productList
+      newProductList = productList
           .where((element) => element.category.contains(filterValue))
           .toList();
+
+      listIndex = 2;
     }
     notifyListeners();
   }

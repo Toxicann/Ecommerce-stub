@@ -57,6 +57,8 @@ class _MainScreenState extends State<MainScreen> {
               data.fetchData(context);
               cart.cartList = [];
               cart.totalPrice();
+              data.listIndex = 1;
+              value = 'No filter';
             },
           ),
         ],

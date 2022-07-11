@@ -26,6 +26,12 @@ class _ProductsState extends State<Products> {
 
   @override
   Widget build(BuildContext context) {
+    var list;
+
+    widget.data.listIndex == 1
+        ? list = widget.data.productList
+        : list = widget.data.newProductList;
+
     return Expanded(
       child: GridView.builder(
           shrinkWrap: true,
@@ -33,7 +39,7 @@ class _ProductsState extends State<Products> {
             crossAxisCount: 2,
             childAspectRatio: 0.6,
           ),
-          itemCount: widget.data.productList.length,
+          itemCount: list.length,
           itemBuilder: (BuildContext context, index) {
             return Container(
               margin: const EdgeInsets.all(8.0),
@@ -44,28 +50,23 @@ class _ProductsState extends State<Products> {
                     image: AssetImage('assets/fantechHeadset.jpg'),
                     fit: BoxFit.cover,
                   ),
-                  Text(widget.data.productList[index].name),
-                  Text(widget.data.productList[index].price
-                      .replaceAll('\$', 'Rs. ')),
-                  Text('Stock: ${widget.data.productList[index].stock}'),
-                  Text(formatDate(widget.data.productList[index].createDate)),
+                  Text(list[index].name),
+                  Text(list[index].price.replaceAll('\$', 'Rs. ')),
+                  Text('Stock: ${list[index].stock}'),
+                  Text(formatDate(list[index].createDate)),
                   Text(
-                    '${widget.data.productList[index].category[0]}, ${widget.data.productList[index].category[1]}',
+                    '${list[index].category[0]}, ${list[index].category[1]}',
                   ),
                   ElevatedButton.icon(
                     icon: const Icon(Icons.add_shopping_cart),
-                    label: Text(widget.data.productList[index].stock < 1
-                        ? 'Out of Stock'
-                        : 'Add to cart'),
-                    onPressed: widget.data.productList[index].stock < 1
+                    label: Text(
+                        list[index].stock < 1 ? 'Out of Stock' : 'Add to cart'),
+                    onPressed: list[index].stock < 1
                         ? null
                         : () {
                             widget.data.decreaseStock(index);
-                            widget.cart
-                                .addToCart(widget.data.productList[index]);
+                            widget.cart.addToCart(list[index]);
                             widget.cart.totalPrice();
-                            print(
-                                '${widget.cart.cartList}, ${widget.data.productList[index]}');
                           },
                   )
                 ],
